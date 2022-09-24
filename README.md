@@ -66,6 +66,20 @@ _--dump="alarm/dump"_ Topic that is used to see what messages have been sent sin
 }
 ```
 
+## Dump Information
+Extra infomation can be retrived by subscribing to the Dump topic, by default `alarm/dump`.  When
+a JSON dump command is send it will reply on the Dump topic.  
+
+`{"dump": "log"}` - returns the list of the status messages recieved since the last start/restart.
+
+`{"dump": "config"}` - returns the current configuation of the AD2 device.
+
+Using mosquitto, MQTT command line utiliity-
+
+* Listen - `mosquitto_sub -L mqtt://localhost/alarm/dump | jq .`
+* Log - `mosquitto_pub -L mqtt://localhost/alarm/dump -m '{"dump": "log"}`
+* Configuration - `mosquitto_pub -L mqtt://localhost/alarm/dump -m '{"dump": "config"}`
+
 ## Referances 
 This is what I used as referance for this code. 
 

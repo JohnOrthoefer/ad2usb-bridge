@@ -45,7 +45,7 @@ func main() {
 
       if statusValid && mqttClient != nil && !alarmStatus.Last.IsZero() {
          mqttClient.Publish(getTopic(), 0, false, mqttStatus(alarmStatus))
-      }
+      } 
       if newState != "" {
          var sendMe string
          if alarmStatus.Bits.Ready {
@@ -59,6 +59,8 @@ func main() {
             sendMe = "disarm"
          } else if newState == FAULTS {
             sendMe = "faults"
+         } else if newState == CONFIG {
+            sendMe = "config"
          }
          newState = ""
 

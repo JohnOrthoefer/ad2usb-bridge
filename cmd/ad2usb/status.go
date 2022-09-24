@@ -13,6 +13,7 @@ var (
    lastStatus  *StatusLog
    logStatus   map[string]*StatusLog
    validCode   *regexp.Regexp
+   validConfig *regexp.Regexp
 )
 
 func getBoolValue(s string, n int) bool {
@@ -30,28 +31,31 @@ func getInt(s string) uint {
    return uint(v)
 }
 
-func storeStatus(raw string) bool  {
-   if !validCode.MatchString(raw) {
-      log.Printf("discarding- '%s'\n", raw)
-      return false
-   }
-   m := validCode.FindAllStringSubmatch(raw, -1)
+func parseConfig(str string) {
+
+   m := validConfig.FindAllStringSubmatch(str, -1)
+   log.Printf("Config- %q", m[0][1])
+   mqttConfig(m[0][1])
+}
+
+func parseStatus(str string) {
+   m := validCode.FindAllStringSubmatch(str, -1)
    bitstr := m[0][1]
    disp   := m[0][4]
 
-   if lastStatus != nil && raw == lastStatus.raw {
+   if lastStatus != nil && str == lastStatus.raw {
       lastStatus.Decoded.Count += 1
       lastStatus.Decoded.Last = time.Now()
-      return true
+      return
    }
 
-   if logStatus[raw] == nil {
+   if logStatus[str] == nil {
       t := StatusLog {
-         raw:   raw,
+         raw:   str,
       }
-      logStatus[raw] = &t
+      logStatus[str] = &t
    }
-   lastStatus = logStatus[raw]
+   lastStatus = logStatus[str]
 
    alarmStatus = Status {
       Bits:       StatusBits {
@@ -79,13 +83,32 @@ func storeStatus(raw string) bool  {
       Count:           1,
    }
 
-   logStatus[raw].Decoded = alarmStatus
+   logStatus[str].Decoded = alarmStatus
 
    log.Printf("%s (%s)", alarmStatus.Message, bitstr)
-   return true
+}
+
+func storeStatus(raw string) bool  {
+   if raw == "!>" {
+      return false
+   }
+
+   if validConfig.MatchString(raw) {
+      parseConfig(raw)
+      return false
+   }
+
+   if validCode.MatchString(raw) {
+      parseStatus(raw)
+      return true
+   } 
+
+   log.Printf("discarding- '%s'\n", raw)
+   return false
 }
 
 func init() {
    validCode = regexp.MustCompile(`\[([0-9]{16})----\],([0-9]{3}),\[([0-9a-f]{30})\],"(.*)"`)
+   validConfig = regexp.MustCompile(`^!CONFIG>(.*)$`)
    logStatus = make(map[string]*StatusLog)
 }

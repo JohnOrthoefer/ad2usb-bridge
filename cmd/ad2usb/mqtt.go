@@ -2,6 +2,7 @@ package main
 
 import (
    "log"
+   "strings"
    "github.com/eclipse/paho.mqtt.golang"
    "encoding/json"
 )
@@ -9,6 +10,7 @@ import (
 var (
    mqttClient  mqtt.Client
    mqttTopic   string
+   replyTopic  string
 )
 
 func setTopic(t string) {
@@ -18,6 +20,18 @@ func setTopic(t string) {
 func getTopic() string {
    rtn := mqttTopic
    return rtn
+}
+
+func mqttConfig(cfgStr string) {
+   Cfg := make(map[string]string)
+
+   for _, val := range strings.Split(cfgStr, "&") {
+      result := strings.Split(val, "=")
+      Cfg[result[0]] = result[1]
+   }
+
+   rtn, _ := json.Marshal(&Cfg)
+   mqttClient.Publish(replyTopic, 0, false, rtn)
 }
 
 func mqttStatus(s Status)string {
@@ -48,12 +62,27 @@ func cmdMesg(c mqtt.Client, m mqtt.Message ) {
 }
 
 func dumpMesg(c mqtt.Client, m mqtt.Message ) {
-   if string(m.Payload()) != "{\"dump\":\"now\"}" {
+   var Query struct {
+      Dump string `json:"dump"`
+   }
+
+   err := json.Unmarshal(m.Payload(), &Query)
+   if err != nil {
+      log.Printf("err:%s, Can not Parse \"%s\"\n", err, string(m.Payload()))
       return
    }
 
-   rtn, _ := json.Marshal(logStatus)
-   mqttClient.Publish(m.Topic(), 0, false, rtn)
+   if Query.Dump == "log" {
+      rtn, _ := json.Marshal(logStatus)
+      mqttClient.Publish(m.Topic(), 0, false, rtn)
+      return
+   }
+
+   if Query.Dump == "config" {
+      newState = CONFIG
+      replyTopic = m.Topic()
+      return
+   }
 }
 
 func mqttSetup(broker string, pubTopic string, subTopic string, dumpTopic string) {

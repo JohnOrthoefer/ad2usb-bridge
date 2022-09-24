@@ -7,4 +7,5 @@ const (
    DISARMED = "D"
    ALARM_TRIGGERED = "T"
    FAULTS = "*"
+   CONFIG = "CONFIG"
 )
