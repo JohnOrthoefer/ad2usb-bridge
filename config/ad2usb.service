@@ -1,0 +1,15 @@
+[Unit]
+Description=alarm Monitor Bridge
+After=network.target
+
+[Service]
+Type=simple
+User=alarmctl
+Group=dialout
+WorkingDirectory=/tmp
+EnvironmentFile=-/etc/sysconfig/ad2usb
+EnvironmentFile=-/etc/default/ad2usb
+ExecStart=/root/bin/ad2usb $OPTIONS
+
+[Install]
+WantedBy=multi-user.target
