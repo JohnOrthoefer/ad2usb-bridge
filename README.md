@@ -3,9 +3,24 @@ This provides a bridge between a [NuTech AD2USB](https://www.alarmdecoder.com/ca
 
 This code interfaces the device with a [Homebridge](https://homebridge.io/) and allows control of it via [MQTTThing](https://github.com/arachnetech/homebridge-mqttthing).
 
-##
+## ad2usb Flags
+### General
+**--help**
+**--version**
+**--[no-]timestamp**
 
+### Serial/USB
+**--serial="/dev/ttyUSB0"**
+**--baud=115200**
 
+### Configuration
+**--config="/usr/local/etc/ad2usb.yaml"**
+
+### MQTT
+**--publish=tcp://localhost:1883**
+**--state="alarm/state"**
+**--set="alarm/set"**
+**--dump="alarm/dump"**
 
 ## Homebridge configuration
 ```
@@ -32,3 +47,8 @@ This code interfaces the device with a [Homebridge](https://homebridge.io/) and 
     "accessory": "mqttthing"
 }
 ```
+
+## Referances 
+This is what I used as referance for this code. 
+[Protocol](https://www.alarmdecoder.com/wiki/index.php/Protocol)
+[AlarmDecoder Python](https://github.com/nutechsoftware/alarmdecoder)
