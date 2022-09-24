@@ -5,28 +5,28 @@ This code interfaces the device with a [Homebridge](https://homebridge.io/) and 
 
 ## ad2usb Flags
 ### General
-**--help**  Show a list of the command flags and exit
+__--help__  Show a list of the command flags and exit
 
-**--version** Show the version number and git hash of the build
+__--version__ Show the version number and git hash of the build
 
-**--[no-]timestamp** turn the output timestamps on/off, when running it in a terminal for testing, when running under systemd, it timestamps the output.
+__--[no-]timestamp__ turn the output timestamps on/off, when running it in a terminal for testing, when running under systemd, it timestamps the output.
 
 ### Serial/USB
-**--serial="/dev/ttyUSB0"**  Set the serial device. 
+__--serial="/dev/ttyUSB0"__  Set the serial device. 
 
-**--baud=115200**  Set the speed of the serial device, 115200 is the USB speed.
+__--baud=115200__  Set the speed of the serial device, 115200 is the USB speed.
 
 ### Configuration
-**--config="/usr/local/etc/ad2usb.yaml"**  the location of the file which has the codes to send the the security system.
+__--config="/usr/local/etc/ad2usb.yaml"__  the location of the file which has the codes to send the the security system.
 
 ### MQTT
-**--publish=tcp://localhost:1883**  MQTT broker to publish to.
+__--publish=tcp://localhost:1883__  MQTT broker to publish to.
 
-**--state="alarm/state"** Topic for the current state.
+__--state="alarm/state"__ Topic for the current state.
 
-**--set="alarm/set"**  Topic to change the alarm state.
+__--set="alarm/set"__  Topic to change the alarm state.
 
-**--dump="alarm/dump"** Topic that is used to see what messages have been sent since start-up.
+__--dump="alarm/dump"__ Topic that is used to see what messages have been sent since start-up.
 
 ## Homebridge configuration
 ```
