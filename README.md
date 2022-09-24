@@ -56,5 +56,7 @@ This code interfaces the device with a [Homebridge](https://homebridge.io/) and 
 
 ## Referances 
 This is what I used as referance for this code. 
-[Protocol](https://www.alarmdecoder.com/wiki/index.php/Protocol)
-[AlarmDecoder Python](https://github.com/nutechsoftware/alarmdecoder)
+
+* [Protocol](https://www.alarmdecoder.com/wiki/index.php/Protocol)
+
+* [AlarmDecoder Python](https://github.com/nutechsoftware/alarmdecoder)
