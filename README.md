@@ -3,3 +3,32 @@ This provides a bridge between a [NuTech AD2USB](https://www.alarmdecoder.com/ca
 
 This code interfaces the device with a [Homebridge](https://homebridge.io/) and allows control of it via [MQTTThing](https://github.com/arachnetech/homebridge-mqttthing).
 
+##
+
+
+
+## Homebridge configuration
+```
+{
+    "type": "securitySystem",
+    "name": "Alarm",
+    "url": "mqtt://localhost",
+    "topics": {
+        "setTargetState": "alarm/set",
+        "getTargetState": {
+            "topic": "alarm/state",
+            "apply": "return JSON.parse(message).State"
+        },
+        "getCurrentState": {
+            "topic": "alarm/state",
+            "apply": "return JSON.parse(message).State"
+        }
+    },
+    "restrictTargetState": [
+        0,
+        1,
+        3
+    ],
+    "accessory": "mqttthing"
+}
+```

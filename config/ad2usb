@@ -1,0 +1,1 @@
+OPTIONS="--publish tcp://localhost:1883 --no-timestamp"
