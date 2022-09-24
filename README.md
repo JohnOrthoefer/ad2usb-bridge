@@ -5,28 +5,40 @@ This code interfaces the device with a [Homebridge](https://homebridge.io/) and 
 
 ## ad2usb Flags
 ### General
-__--help__  Show a list of the command flags and exit
+_--help_  Show a list of the command flags and exit
 
-__--version__ Show the version number and git hash of the build
+_--version_ Show the version number and git hash of the build
 
-__--[no-]timestamp__ turn the output timestamps on/off, when running it in a terminal for testing, when running under systemd, it timestamps the output.
+_--[no-]timestamp_ turn the output timestamps on/off, when running it in a terminal for testing, when running under systemd, it timestamps the output.
 
 ### Serial/USB
-__--serial="/dev/ttyUSB0"__  Set the serial device. 
+_--serial="/dev/ttyUSB0"_  Set the serial device. 
 
-__--baud=115200__  Set the speed of the serial device, 115200 is the USB speed.
+_--baud=115200_  Set the speed of the serial device, 115200 is the USB speed.
 
 ### Configuration
-__--config="/usr/local/etc/ad2usb.yaml"__  the location of the file which has the codes to send the the security system.
+_--config="/usr/local/etc/ad2usb.yaml"_  the location of the file which has the codes to send the the security system.
+
+**Configuation Syntax**
+
+The file is YAML syntax, with a few scalars.  
+
+  _stay: "#3"_ Value to send to arm the system for stay/night.
+
+  _away: "#2"_ Value to send to arm the system for away.
+
+  _disarm: "54321"_ Value to send to disarm.
+
+  _faults: "*"_ Value to dump faults.
 
 ### MQTT
-__--publish=tcp://localhost:1883__  MQTT broker to publish to.
+_--publish=tcp://localhost:1883_  MQTT broker to publish to.
 
-__--state="alarm/state"__ Topic for the current state.
+_--state="alarm/state"_ Topic for the current state.
 
-__--set="alarm/set"__  Topic to change the alarm state.
+_--set="alarm/set"_  Topic to change the alarm state.
 
-__--dump="alarm/dump"__ Topic that is used to see what messages have been sent since start-up.
+_--dump="alarm/dump"_ Topic that is used to see what messages have been sent since start-up.
 
 ## Homebridge configuration
 ```
