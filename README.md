@@ -6,7 +6,9 @@ This code interfaces the device with a [Homebridge](https://homebridge.io/) and 
 ## ad2usb Flags
 ### General
 **--help**
+
 **--version**
+
 **--[no-]timestamp**
 
 ### Serial/USB
