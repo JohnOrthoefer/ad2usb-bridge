@@ -41,6 +41,7 @@ func main() {
    
    // Main loop wait for a line, parse it and publish
    for scanner.Scan() {
+      debugMesg("rcvd: '%s'", scanner.Text())
       statusValid := storeStatus(scanner.Text())
 
       if statusValid && mqttClient != nil && !alarmStatus.Last.IsZero() {
@@ -48,27 +49,33 @@ func main() {
       } 
       if newState != "" {
          var sendMe string
-         if alarmStatus.Bits.Ready {
-            switch newState {
-            case STAY_ARM:
+
+         switch newState {
+         case STAY_ARM:
+            if alarmStatus.Bits.Ready {
                sendMe = "stay"
-            case AWAY_ARM:
+            }
+         case AWAY_ARM:
+            if alarmStatus.Bits.Ready {
                sendMe = "away"
             }
-         } else if (alarmStatus.Bits.ArmedAway || alarmStatus.Bits.ArmedHome) && newState == DISARMED {
-            sendMe = "disarm"
-         } else if newState == FAULTS {
-            sendMe = "faults"
-         } else if newState == CONFIG {
+         case DISARMED:
+            if alarmStatus.Bits.ArmedAway || alarmStatus.Bits.ArmedHome {
+               sendMe = "disarm"
+            }
+         case CONFIG:
             sendMe = "config"
+         case FAULTS: 
+            sendMe = "faults"
          }
          newState = ""
 
          if sendMe == "" {
-            log.Printf("No message to send.")
+            debugMesg("No message to send.")
             continue
          }
-         log.Printf("Sending %s", sendMe)
+
+         debugMesg("Sending %s", sendMe)
          s.Write([]byte(cfg[sendMe]))
       }
    }

@@ -34,7 +34,7 @@ func getInt(s string) uint {
 func parseConfig(str string) {
 
    m := validConfig.FindAllStringSubmatch(str, -1)
-   log.Printf("Config- %q", m[0][1])
+   debugMesg("Config- %q", m[0][1])
    mqttConfig(m[0][1])
 }
 
@@ -103,7 +103,7 @@ func storeStatus(raw string) bool  {
       return true
    } 
 
-   log.Printf("discarding- '%s'\n", raw)
+   debugMesg("discarding- '%s'\n", raw)
    return false
 }
 

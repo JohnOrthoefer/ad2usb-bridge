@@ -7,6 +7,7 @@ import (
 
 var config struct {
    Version  bool     `help:"Show version and exit" default:"false"`
+   Debug    bool     `help:"Debug info enabled" default:"false"`
    Timestamp bool    `help:"Timestamp output logs" default:"true" negatable:""`
    Serial   string   `help:"Serial Device" default:"/dev/ttyUSB0"`
    Baud     int      `help:"Baud Rate" default:115200`
@@ -18,6 +19,9 @@ var config struct {
 }
 
 func printOptions() {
+   if !config.Debug {
+      return
+   }
    log.Printf("Version %t", config.Version)
    log.Printf("Timestamp %t", config.Timestamp)
    log.Printf("Serial %s", config.Serial)
