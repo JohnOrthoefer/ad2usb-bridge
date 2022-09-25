@@ -8,4 +8,5 @@ const (
    ALARM_TRIGGERED = "T"
    FAULTS = "*"
    CONFIG = "CONFIG"
+   SETTIME = "SETTIME"
 )

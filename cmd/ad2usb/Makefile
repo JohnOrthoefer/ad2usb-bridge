@@ -1,4 +1,4 @@
-SRC=build.go const.go main.go mqtt.go options.go status.go types.go debug.go
+SRC=build.go const.go main.go mqtt.go options.go status.go types.go debug.go time.go
 GOLANG=/usr/bin/go
 CURL=/usr/bin/curl
 GIT=/usr/bin/git
