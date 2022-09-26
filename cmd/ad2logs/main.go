@@ -45,13 +45,13 @@ func main() {
       fmt.Printf("%s\n", token.Error())
       return
    }
-   mqttClient.Subscribe(config.Dump, 1, dumpMesg)
+   mqttClient.Subscribe(config.Topic, 1, dumpMesg)
 
    query.Dump = config.CMD
 
    jsonStr, _ = json.Marshal(&query) 
 
-   mqttClient.Publish(config.Dump, 0, false, jsonStr)
+   mqttClient.Publish(config.Topic, 0, false, jsonStr)
 
    for (!done) {
       time.Sleep(time.Second)
