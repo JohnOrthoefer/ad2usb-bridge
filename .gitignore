@@ -8,6 +8,7 @@
 # Test binary, built with `go test -c`
 *.test
 cmd/ad2usb/ad2usb
+cmd/ad2logs/ad2logs
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
