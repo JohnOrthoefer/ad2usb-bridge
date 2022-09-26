@@ -67,9 +67,11 @@ func main() {
             sendMe = "config"
          case FAULTS: 
             sendMe = "faults"
+/*
          case SETTIME:
             sendMe = "currentTime"
             cfg[sendMe] = currentTime(cfg["time"])
+*/
          }
          newState = ""
 
