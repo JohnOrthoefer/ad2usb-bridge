@@ -6,7 +6,8 @@ import (
 
 var config struct {
    Version  bool     `help:"Show version and exit" default:"false"`
-   Publish  *url.URL   `help:"MQTT URL" default:"tcp://localhost:1883"`
+   Broker  *url.URL   `help:"MQTT URL" default:"tcp://localhost:1883"`
    Dump     string   `help:"MQTT Topic for Log Messages" default:"alarm/dump"`
+   CMD      string   `help:"Command to send" arg:"" default:"log"`   
 }
 

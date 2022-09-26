@@ -38,7 +38,7 @@ func main() {
    if config.Version {
       fmtVersion(true)
    }
-   opts := mqtt.NewClientOptions().AddBroker(config.Publish.String())
+   opts := mqtt.NewClientOptions().AddBroker(config.Broker.String())
    mqttClient := mqtt.NewClient(opts)
 
    if token := mqttClient.Connect(); token.Wait() && token.Error() != nil {
@@ -47,7 +47,7 @@ func main() {
    }
    mqttClient.Subscribe(config.Dump, 1, dumpMesg)
 
-   query.Dump = "log"
+   query.Dump = config.CMD
 
    jsonStr, _ = json.Marshal(&query) 
 
