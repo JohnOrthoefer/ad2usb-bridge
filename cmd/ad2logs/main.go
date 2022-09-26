@@ -24,7 +24,13 @@ func dumpMesg(c mqtt.Client, m mqtt.Message ) {
       return
    }
 
-   fmt.Printf("%s\n", string(m.Payload()))
+   if config.Pretty {
+      var out bytes.Buffer
+      json.Indent(&out, m.Payload(), "", "  ")
+      fmt.Printf("%s\n", out.String())
+   } else {
+      fmt.Printf("%s\n", string(m.Payload()))
+   }
    
    done = true
 }
