@@ -82,3 +82,5 @@ Using mosquitto, MQTT command line utiliity-
 This is what I used as referance for this code. 
 * [Protocol](https://www.alarmdecoder.com/wiki/index.php/Protocol)
 * [AlarmDecoder Python](https://github.com/nutechsoftware/alarmdecoder)
+* [Vista 20 - Programming Guide](http://site.aesecurity.com/Manuals/v15pand20pprogrammingguide.pdf)
+* [Vista 20 - Users Manual](https://www.holmeselectricsecurity.com/wp-content/uploads/Vista_15P_User_Manual.pdf)
